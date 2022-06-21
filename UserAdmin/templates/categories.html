@@ -80,16 +80,19 @@
 												</tr>
 											</thead>
 											<tbody>
-												{% for i in categoriesform %}
+												{% for i in cats %}
 												<tr>
 													
 													<td>
 														{{i.id}}
 													</td>
 													<td>{{i.name}}</td>
-													<td class="text-end">
+													<td class="text-end d-f">
+														<!-- <form action="{% url 'UserAdmin:deleteCategories' i.id %}" method="post"> -->
 														<a href="javascript:void(0);" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#edit-category"><i class="far fa-edit"></i></a> 
-														<a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete_category"><i class="far fa-trash-alt"></i></a>
+														
+														<a href="" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target=""><i class="far fa-trash-alt"></i></a>
+													<!-- </form> -->
 													</td>
 													
 												</tr>
@@ -152,10 +155,12 @@
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form>
+						<form  method="POST" action="">
+							{% csrf_token %}
 							<div class="form-group">
-								<label>Category Name</label>
-								<input type="text" class="form-control" value="Graphic & Design">
+								<label>Category </label>
+								{{categoriesform}}
+								<!-- <input type="text" class="form-control" value="Graphic & Design"> -->
 							</div>
 							<div class="mt-4">
 								<button type="submit" class="btn btn-primary btn-block">Submit</button>
@@ -179,8 +184,10 @@
 							<p>Are you sure want to delete?</p>
 						</div>
 						<div class="modal-btn delete-action">
+
 							<div class="row">
-								<form action="" method="post" style="display: flex; justify-content: space-between;">
+							
+								<form action="" method="POST" style="display: flex; justify-content: space-between;">
 									{% csrf_token %}
 								<div class="col-6">
 									<input type="submit" class="btn btn-primary continue-btn" value="Delete">
@@ -189,7 +196,10 @@
 								<div class="col-6">
 									<a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
 								</div>
+								
+								
 							</form>
+						
 							</div>
 						</div>
 					</div>

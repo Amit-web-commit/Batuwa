@@ -20,11 +20,23 @@ def addCategories(request):
     cats = Categories.objects.all()
     return render(request, 'categories.html',{'categoriesform': categoriesForm, 'cats':cats})
 
-def deleteCategories(request, id):
+def deleteCategories(request, pk):
+    categoryData = Categories.objects.get(pk=pk)
+    categoryData.delete()
+    return render(request, 'categories.html',{'cd': categoryData} )
+
+def updateCategories(request, id):
     if request.method == "POST":
-        categoryData = Categories.objects.get(pk=id)
-        categoryData.delete()
-        return HttpResponseRedirect('/')
+        catagories = Categories.objects.get(pk=id)
+        updateData = CategoriesForm(request.POST, instance = catagories)
+        if updateData.is_valid():
+            updateData.save()
+    else:
+        catagories = Categories.objects.get(pk=id)
+        updateData = CategoriesForm(instance = catagories)
+
+
+    return HttpResponseRedirect('/')
 
 def projects(request):
     return render(request, 'projects.html', {})
