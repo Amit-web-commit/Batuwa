@@ -6,8 +6,8 @@ app_name = 'UserAdmin'
 urlpatterns = [
     path('dashboard/', views.dashboard, name="dashboard"),
     path('categories/', views.addCategories, name="categories"),
-    path('categories/<int:pk>/delete/', views.deleteCategories, name="deleteCategories"),
-    path('<int:id>', views.updateCategories, name="updateCatagories"),
+    path('categories/<int:id>/delete', views.deleteCategories, name="deleteCategories"),
+    path('update/<int:id>', views.updateCategories, name="updateCatagories"),
     path('projects/', views.projects, name="projects"),
     path('users/', TemplateView.as_view(template_name = 'users.html'))
 ]

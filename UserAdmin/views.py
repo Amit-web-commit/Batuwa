@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render,redirect, HttpResponseRedirect
 from django.views.generic import View, TemplateView
 from .forms import  CategoriesForm
 from .models import *
@@ -20,10 +20,11 @@ def addCategories(request):
     cats = Categories.objects.all()
     return render(request, 'categories.html',{'categoriesform': categoriesForm, 'cats':cats})
 
-def deleteCategories(request, pk):
-    categoryData = Categories.objects.get(pk=pk)
-    categoryData.delete()
-    return render(request, 'categories.html',{'cd': categoryData} )
+def deleteCategories(request, id):
+    if request.method == "POST":
+        categoryData = Categories.objects.get(pk=id)
+        categoryData.delete()
+    return redirect("/")
 
 def updateCategories(request, id):
     if request.method == "POST":
@@ -36,7 +37,8 @@ def updateCategories(request, id):
         updateData = CategoriesForm(instance = catagories)
 
 
-    return HttpResponseRedirect('/')
+    # return HttpResponseRedirect('/')
+    return render(request, 'updateCatagories.html',{'updateData':updateData})
 
 def projects(request):
     return render(request, 'projects.html', {})

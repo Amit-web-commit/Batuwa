@@ -1,0 +1,17 @@
+{% extends 'base1.html'%}
+{% load static %}
+{% block update_Catagories %}
+<div class="modal-body container " style="margin-top: 40px; text-align: center;">
+    <form  method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group" style="width: 50%; margin-left: 25%;">
+            <label>Category </label>
+            {{updateData}}
+            <!-- <input type="text" class="form-control" value="Graphic & Design"> -->
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary btn-block" style="width: 50%;">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
